@@ -19,6 +19,7 @@
     "bluebird": "^2.3.11",
     "body-parser": "^1.9.2",
     "busboy": "^0.2.9",
+    "debug": "^2.1.1",
     "express": "^4.10.2",
     "graceful-fs": "^3.0.5",
     "mime": "^1.2.11",
