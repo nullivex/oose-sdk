@@ -1,4 +1,4 @@
-oose-sdk Travis Here!
+oose-sdk [![Build Status](https://travis-ci.org/eSited/oose-sdk.svg?branch=master)](https://travis-ci.org/eSited/oose-sdk)
 ========
 
 OOSE Software Development Kit
