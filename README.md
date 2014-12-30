@@ -75,6 +75,10 @@ describe('my test',function(){
 
 ## Changelog
 
+### 1.0.2
+* Fixed issue with ssl options being populated by http server
+* Remove preceding slash on content.relativePath
+
 ### 1.0.1
 * Fix missing package for api helper
 

@@ -16,10 +16,18 @@ var contentExists = require('./helpers/contentExists')
 var pkg = require('../package.json')
 var purchase = require('./helpers/purchase')
 var sslOptions = {
+  keyFile: __dirname + '/../ssl/oose_test.key',
+  crtFile: __dirname + '/../ssl/oose_test.crt',
   key: fs.readFileSync(__dirname + '/../ssl/oose_test.key'),
   cert: fs.readFileSync(__dirname + '/../ssl/oose_test.crt')
 }
-var server = https.createServer(sslOptions,app)
+var server = https.createServer(
+  {
+    key: sslOptions.key,
+    cert: sslOptions.cert
+  },
+  app
+)
 var user = require('./helpers/user')
 var UserError = require('../helpers/UserError')
 
