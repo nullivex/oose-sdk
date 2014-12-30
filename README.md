@@ -75,6 +75,9 @@ describe('my test',function(){
 
 ## Changelog
 
+### 1.0.3
+* Fix typo in ssl options
+
 ### 1.0.2
 * Fixed issue with ssl options being populated by http server
 * Remove preceding slash on content.relativePath

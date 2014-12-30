@@ -17,7 +17,7 @@ var pkg = require('../package.json')
 var purchase = require('./helpers/purchase')
 var sslOptions = {
   keyFile: __dirname + '/../ssl/oose_test.key',
-  crtFile: __dirname + '/../ssl/oose_test.crt',
+  certFile: __dirname + '/../ssl/oose_test.crt',
   key: fs.readFileSync(__dirname + '/../ssl/oose_test.key'),
   cert: fs.readFileSync(__dirname + '/../ssl/oose_test.crt')
 }
