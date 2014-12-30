@@ -1,0 +1,39 @@
+{
+  "author": "ESITED LLC <developers@esited.com>",
+  "name": "oose-sdk",
+  "description": "A mock OOSE cluster that can be used for testing.",
+  "version": "1.0.0",
+  "homepage": "http://www.oose.io/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eSited/oose-sdk.git"
+  },
+  "main": "app.js",
+  "keywords": [
+    "oose"
+  ],
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "dependencies": {
+    "bluebird": "^2.3.11",
+    "body-parser": "^1.9.2",
+    "busboy": "^0.2.9",
+    "express": "^4.10.2",
+    "graceful-fs": "^3.0.5",
+    "mime": "^1.2.11",
+    "object-manage": "^0.8.0",
+    "promisepipe": "^1.0.1",
+    "sha1-stream": "^0.1.0",
+    "temp": "^0.8.1"
+  },
+  "scripts": {
+    "start": "node app",
+    "test": "node ./node_modules/mocha/bin/mocha ./test/*.test.js"
+  },
+  "devDependencies": {
+    "chai": "1.10.x",
+    "mocha": "2.0.x",
+    "request": "^2.48.0"
+  }
+}
