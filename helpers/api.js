@@ -1,6 +1,7 @@
 'use strict';
 var P = require('bluebird')
 var debug = require('debug')('oose-sdk:api')
+var ObjectManage = require('object-manage')
 var request = require('request')
 
 var NetworkError = require('../helpers/NetworkError')
