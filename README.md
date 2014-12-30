@@ -75,5 +75,8 @@ describe('my test',function(){
 
 ## Changelog
 
+### 1.0.1
+* Fix missing package for api helper
+
 ### 1.0.0
 * Initial Release
