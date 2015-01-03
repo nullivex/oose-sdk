@@ -75,6 +75,9 @@ describe('my test',function(){
 
 ## Changelog
 
+### 1.0.4
+* Request wasn'st included as a dependency (was a dev dependency)
+
 ### 1.0.3
 * Fix typo in ssl options
 
