@@ -18,13 +18,15 @@ var purchase = require('./helpers/purchase')
 var sslOptions = {
   keyFile: __dirname + '/../ssl/oose_test.key',
   certFile: __dirname + '/../ssl/oose_test.crt',
+  pemFile: __dirname + '/../ssl/oose_test.pem',
   key: fs.readFileSync(__dirname + '/../ssl/oose_test.key'),
-  cert: fs.readFileSync(__dirname + '/../ssl/oose_test.crt')
+  cert: fs.readFileSync(__dirname + '/../ssl/oose_test.crt'),
+  pem: fs.readFileSync(__dirname + '/../ssl/oose_test.pem')
 }
 var server = https.createServer(
   {
-    key: sslOptions.key,
-    cert: sslOptions.cert
+    cert: sslOptions.pem,
+    key: sslOptions.pem
   },
   app
 )

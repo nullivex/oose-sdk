@@ -75,6 +75,9 @@ describe('my test',function(){
 
 ## Changelog
 
+### 1.0.4
+* SSL uses PEM instead of crt/key
+
 ### 1.0.3
 * Fix typo in ssl options
 
