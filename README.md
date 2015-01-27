@@ -75,6 +75,9 @@ describe('my test',function(){
 
 ## Changelog
 
+### 1.0.6
+* Better error catching in `api.handleNetworkError()`
+
 ### 1.0.5
 * SSL uses PEM instead of crt/key
 
