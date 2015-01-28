@@ -1,5 +1,4 @@
 'use strict';
-var util = require('util')
 
 
 
@@ -8,11 +7,19 @@ var util = require('util')
  * @param {string} message
  * @constructor
  */
-var NetworkError = function(message){
-  Error.apply(this,arguments)
-  this.message = '' + message
+function NetworkError(message) {
+  this.message = message;
+  this.name = 'NetworkError'
+  Error.captureStackTrace(this,NetworkError)
 }
-util.inherits(NetworkError,Error)
+NetworkError.prototype = Object.create(Error.prototype)
+
+
+/**
+ * Set constructor for prototype
+ * @type {NetworkError}
+ */
+NetworkError.prototype.constructor = NetworkError
 
 
 /**

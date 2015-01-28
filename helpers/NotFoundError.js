@@ -1,18 +1,25 @@
 'use strict';
-var util = require('util')
 
 
 
 /**
- * Userspace Error Object
+ * NotFoundError Error Object
  * @param {string} message
  * @constructor
  */
-var NotFoundError = function(message){
-  Error.apply(this,arguments)
-  this.message = '' + message
+function NotFoundError(message) {
+  this.message = message;
+  this.name = 'NotFoundError'
+  Error.captureStackTrace(this,NotFoundError)
 }
-util.inherits(NotFoundError,Error)
+NotFoundError.prototype = Object.create(Error.prototype)
+
+
+/**
+ * Set constructor for prototype
+ * @type {NotFoundError}
+ */
+NotFoundError.prototype.constructor = NotFoundError
 
 
 /**
