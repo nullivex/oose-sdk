@@ -73,10 +73,17 @@ var validateResponse = function(){
  * @param {Error} err
  */
 var handleNetworkError = function(err){
-  if(err && err.message && err.message.match(/connect|TIMEDOUT|TIMEOUT|SOCK/))
+  if(err instanceof NetworkError){
+    throw err
+  } else if(
+    err &&
+    err.message &&
+    err.message.match(/connect|TIMEDOUT|TIMEOUT|SOCK/)
+  ){
     throw new NetworkError(err.message)
-  else
-    throw new Error(err.message)
+  } else{
+    throw err
+  }
 }
 
 
@@ -112,10 +119,10 @@ var setupRequest = function(type,options){
       rejectUnauthorized: false,
       json: true,
       timeout:
-        process.env.REQUEST_TIMEOUT ||
-        options.timeout ||
-        config[type].timeout ||
-        null,
+      process.env.REQUEST_TIMEOUT ||
+      options.timeout ||
+      config[type].timeout ||
+      null,
       pool: pool,
       auth: {
         username: options.username || config[type].username,
