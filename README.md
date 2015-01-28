@@ -75,6 +75,9 @@ describe('my test',function(){
 
 ## Changelog
 
+### 1.0.8
+* Upgrade error objects with bluebird standards
+
 ### 1.0.7
 * Bug fix to `api.handleNetworkError()`
 
