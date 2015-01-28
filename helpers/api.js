@@ -73,7 +73,7 @@ var validateResponse = function(){
  * @param {Error} err
  */
 var handleNetworkError = function(err){
-  if(err && err.message && err.message.match(/connect|ETIMEDOUT/))
+  if(err && err.message && err.message.match(/connect|TIMEDOUT|TIMEOUT|SOCK/))
     throw new NetworkError(err.message)
   else
     throw new Error(err.message)
