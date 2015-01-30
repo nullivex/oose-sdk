@@ -75,6 +75,11 @@ describe('my test',function(){
 
 ## Changelog
 
+### 1.0.9
+* `api.handleNetworkError()` now handles all TCP/IP unix errors
+* `api.handleNetworkError()` now maintains the original stack trace
+* Added testing for `api.handleNetworkError()`
+
 ### 1.0.8
 * Upgrade error objects with bluebird standards
 

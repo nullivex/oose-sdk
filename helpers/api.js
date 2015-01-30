@@ -7,6 +7,35 @@ var request = require('request')
 var NetworkError = require('../helpers/NetworkError')
 var UserError = require('../helpers/UserError')
 
+var tcpErrors = [
+  'EINTR',
+  'EBADF',
+  'EAGAIN',
+  'EFAULT',
+  'EBUSY',
+  'EINVAL',
+  'ENFILE',
+  'EMFILE',
+  'ENOSPC',
+  'EPIPE',
+  'EWOULDBLOCK',
+  'ENOTSOCK',
+  'ENOTPROTOOPT',
+  'EADDRINUSE',
+  'EADDRNOTAVAIL',
+  'ENETDOWN',
+  'ENETUNREACH',
+  'ENETRESET',
+  'ECONNRESET',
+  'ENOBUFS',
+  'EISCONN',
+  'ENOTCONN',
+  'ETIMEDOUT',
+  'ECONNREFUSED',
+  'EHOSTDOWN',
+  'EHOSTUNREACH'
+]
+
 var cache = {}
 
 var config = {
@@ -73,17 +102,27 @@ var validateResponse = function(){
  * @param {Error} err
  */
 var handleNetworkError = function(err){
+  //if this is already a network error just throw it
   if(err instanceof NetworkError){
     throw err
-  } else if(
-    err &&
-    err.message &&
-    err.message.match(/connect|TIMEDOUT|TIMEOUT|SOCK/)
-  ){
-    throw new NetworkError(err.message)
-  } else{
-    throw err
   }
+  //convert strings to errors
+  if('string' === typeof err){
+    err = new Error(err)
+  }
+  //check if the error message matches a known TCP error
+  var error
+  for(var i = 0; i < tcpErrors.length; i++){
+    if(err.message.indexOf(tcpErrors[i]) >= 0){
+      //lets throw a NetworkError
+      error = new NetworkError(err.message)
+      //preserve the original stack trace so we can actually debug these
+      error.stack = err.stack
+      throw error
+    }
+  }
+  //if we make it here it is not an error we can handle just throw it
+  throw err
 }
 
 
@@ -135,6 +174,27 @@ var setupRequest = function(type,options){
   }
   return cache[cacheKey]
 }
+
+
+/**
+ * Array of TCP errors
+ * @type {array}
+ */
+exports.tcpErrors = tcpErrors
+
+
+/**
+ * Validate API response
+ * @type {Function}
+ */
+exports.validateResponse = validateResponse
+
+
+/**
+ * Handle network error
+ * @type {Function}
+ */
+exports.handleNetworkError = handleNetworkError
 
 
 /**
