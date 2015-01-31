@@ -33,7 +33,8 @@ var tcpErrors = [
   'ETIMEDOUT',
   'ECONNREFUSED',
   'EHOSTDOWN',
-  'EHOSTUNREACH'
+  'EHOSTUNREACH',
+  'ESOCKETTIMEDOUT'
 ]
 
 var cache = {}

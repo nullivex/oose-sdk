@@ -75,6 +75,9 @@ describe('my test',function(){
 
 ## Changelog
 
+### 1.0.10
+* Add missing error message `ESOCKETTIMEDOUT`
+
 ### 1.0.9
 * `api.handleNetworkError()` now handles all TCP/IP unix errors
 * `api.handleNetworkError()` now maintains the original stack trace
