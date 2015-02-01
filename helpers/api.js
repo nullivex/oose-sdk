@@ -34,7 +34,8 @@ var tcpErrors = [
   'ECONNREFUSED',
   'EHOSTDOWN',
   'EHOSTUNREACH',
-  'ESOCKETTIMEDOUT'
+  'ESOCKETTIMEDOUT',
+  'socket hang up'
 ]
 
 var cache = {}

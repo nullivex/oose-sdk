@@ -75,6 +75,9 @@ describe('my test',function(){
 
 ## Changelog
 
+### 1.0.11
+* Add `socket hang up` to Network error messages
+
 ### 1.0.10
 * Add missing error message `ESOCKETTIMEDOUT`
 
