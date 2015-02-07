@@ -84,7 +84,12 @@ var makeURL = function(options){
  */
 var validateResponse = function(){
   return function(res,body){
-    if('object' !== typeof body) body = JSON.parse(body)
+    if('object' !== typeof body){
+      if('{' === body[0])
+        body = JSON.parse(body)
+      else
+        throw new UserError(body)
+    }
     if(200 !== res.statusCode){
       throw new UserError(
         'Invalid response code (' + res.statusCode + ')' +

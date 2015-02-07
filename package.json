@@ -2,7 +2,7 @@
   "author": "ESITED LLC <developers@esited.com>",
   "name": "oose-sdk",
   "description": "A mock OOSE cluster that can be used for testing.",
-  "version": "1.0.11",
+  "version": "1.1.0",
   "homepage": "http://www.oose.io/",
   "repository": {
     "type": "git",
@@ -25,6 +25,7 @@
     "mime": "^1.2.11",
     "object-manage": "^0.8.0",
     "promisepipe": "^1.0.1",
+    "random-js": "^1.0.4",
     "request": "^2.48.0",
     "sha1-stream": "^0.1.0",
     "temp": "^0.8.1"

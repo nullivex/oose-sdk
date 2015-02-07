@@ -1,0 +1,119 @@
+'use strict';
+var P = require('bluebird')
+var expect = require('chai').expect
+var express = require('express')
+var http = require('http')
+var path = require('path')
+
+var mock = require('../mock')
+var Prism = require('../helpers/Prism')
+
+var mockConfig = {
+  prism: {
+    port: 3000,
+    host: '127.0.0.1'
+  }
+}
+
+var mockServerConfig = {
+  port: 3001,
+  host: '127.0.0.1'
+}
+
+//setup a mock server to download a file from
+var app = express()
+var server = http.createServer(app)
+
+app.get('/' + mock.content.filename,function(req,res){
+  var file = path.resolve(mock.content.file)
+  res.sendFile(file)
+})
+
+//make some promises
+P.promisifyAll(server)
+
+describe('Prism',function(){
+  var prism = {}
+  //spin up an entire cluster here
+  this.timeout(3000)
+  //start servers and create a user
+  before(function(){
+    prism = new Prism({
+      username: mock.user.username,
+      password: mock.user.password
+    })
+    return mock.start(mockConfig.prism.port,mockConfig.prism.host)
+      .then(function(){
+        return prism.connect(mockConfig.prism.host,mockConfig.prism.port)
+      })
+      .then(function(){
+        return server.listenAsync(mockServerConfig.port,mockServerConfig.host)
+      })
+      .then(function(){
+        return prism.login()
+      })
+  })
+  //remove user and stop services
+  after(function(){
+    return prism.logout()
+      .then(function(){
+        return P.all([
+          mock.stop(),
+          server.closeAsync()
+        ])
+      })
+  })
+  it('should prepare a request object',function(){
+    return prism.prepare()
+      .then(function(client){
+        expect(client.options.host).to.equal(mockConfig.prism.host)
+        expect(client.options.port).to.equal(mockConfig.prism.port)
+      })
+  })
+  it('should reset the password',function(){
+    return prism.passwordReset()
+      .then(function(result){
+        expect(result.password).to.equal(mock.user.password)
+      })
+  })
+  it('should update the session',function(){
+    return prism.sessionUpdate({foo: 'bar'})
+      .then(function(result){
+        var data = JSON.parse(result.data)
+        expect(data.foo).to.equal('bar')
+      })
+  })
+  it('should get content detail',function(){
+    return prism.contentDetail(mock.content.sha1)
+      .then(function(result){
+        expect(result.sha1).to.equal(mock.content.sha1)
+      })
+  })
+  it('should upload content',function(){
+    return prism.contentUpload(mock.content.file)
+      .then(function(result){
+        expect(result.files.file.sha1).to.equal(mock.content.sha1)
+      })
+  })
+  it('should retrieve content',function(){
+    return prism.contentRetrieve({
+      url: 'http://' + mockServerConfig.host +
+        ':' + mockServerConfig.port + '/' + mock.content.filename
+    })
+      .then(function(result){
+        expect(result.sha1).to.equal(mock.content.sha1)
+      })
+  })
+  it('should purchase content',function(){
+    return prism.contentPurchase(mock.content.sha1,['foo'],mock.purchase.life)
+      .then(function(result){
+        expect(result.token).to.equal(mock.purchase.token)
+      })
+  })
+  it('should remove a purchase',function(){
+    return prism.contentPurchaseRemove(mock.purchase.token)
+      .then(function(result){
+        expect(result.token).to.equal(mock.purchase.token)
+      })
+  })
+})

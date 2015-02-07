@@ -310,7 +310,7 @@ exports.contentPurchaseRemove = function(prism){
   return function(){
     var client = api.setSession(exports.user.session,api.prism(prism.prism))
     return client.postAsync({
-      url: client.url('/content/remove'),
+      url: client.url('/content/purchase/remove'),
       json: {token: exports.purchase.token},
       localAddress: '127.0.0.1'
     })

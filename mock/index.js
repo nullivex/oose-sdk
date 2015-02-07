@@ -7,12 +7,14 @@ var fs = require('graceful-fs')
 var https = require('https')
 var mime = require('mime')
 var promisePipe = require('promisepipe')
+var request = require('request')
 var sha1stream = require('sha1-stream')
 var temp = require('temp')
 
 var app = express()
 var content = require('./helpers/content')
 var contentExists = require('./helpers/contentExists')
+var NetworkError = require('../helpers/NetworkError')
 var pkg = require('../package.json')
 var purchase = require('./helpers/purchase')
 var sslOptions = {
@@ -95,6 +97,13 @@ app.post('/user/password/reset',validateSession,function(req,res){
     password: user.password
   })
 })
+app.post('/user/session/renew',validateSession,function(req,res){
+  var session = user.session
+  session.expires = new Date(req.body.expires)
+  res.json({
+    session: session
+  })
+})
 app.post('/user/session/validate',validateSession,function(req,res){
   res.json({success: 'Session Valid'})
 })
@@ -166,6 +175,32 @@ app.post('/content/upload',validateSession,function(req,res){
   })
   req.pipe(busboy)
 })
+app.post('/content/retrieve',validateSession,function(req,res){
+  var retrieveRequest = req.body.request
+  var extension = req.body.extension || 'bin'
+  var sniff = sha1stream.createStream()
+  var sha1
+  P.try(function(){
+    return promisePipe(request(retrieveRequest),sniff)
+      .then(
+      function(val){return val},
+      function(err){throw new UserError(err.message)}
+    )
+  })
+    .then(function(){
+      sha1 = sniff.sha1
+      res.json({
+        sha1: sha1,
+        extension: extension
+      })
+    })
+    .catch(NetworkError,function(err){
+      res.status(500)
+      res.json({
+        error: 'Failed to check content existence: ' + err.message
+      })
+    })
+})
 app.post('/content/purchase',validateSession,function(req,res){
   var sha1 = req.body.sha1
   var referrer = req.body.referrer
@@ -179,7 +214,7 @@ app.post('/content/purchase',validateSession,function(req,res){
   detail.sha1 = sha1
   res.json(detail)
 })
-app.post('/content/remove',validateSession,function(req,res){
+app.post('/content/purchase/remove',validateSession,function(req,res){
   var token = req.body.token
   res.json({token: token, count: 1, success: 'Purchase removed'})
 })

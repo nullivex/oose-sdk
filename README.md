@@ -75,6 +75,12 @@ describe('my test',function(){
 
 ## Changelog
 
+### 1.1.0
+* Added `Prism` helpers to access Prisms
+* Added testing for new `Prism` helper
+* Added `/content/retrieve`
+* Added `/user/session/renew`
+
 ### 1.0.11
 * Add `socket hang up` to Network error messages
 
