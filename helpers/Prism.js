@@ -383,7 +383,7 @@ Prism.prototype.urlStatic = function(sha1,ext,name){
   name = name || 'file'
   ext = ext || 'bin'
   return 'http://' + that.opts.domain + '/static/' +
-    this.value + '/' + name + '.' + ext
+    sha1 + '/' + name + '.' + ext
 }
 
 
