@@ -75,6 +75,10 @@ describe('my test',function(){
 
 ## Changelog
 
+### 1.1.1
+* Actually export Prism helper
+* Added `urlPurchase` and `urlStatic` to Prism helper
+
 ### 1.1.0
 * Added `Prism` helpers to access Prisms
 * Added testing for new `Prism` helper

@@ -358,6 +358,36 @@ Prism.prototype.contentPurchaseRemove = function(token){
 
 
 /**
+ * Output a purchase URL
+ * @param {object} purchase
+ * @param {string} name
+ * @return {string}
+ */
+Prism.prototype.urlPurchase = function(purchase,name){
+  var that = this
+  name = name || 'video'
+  return 'http://' + that.opts.domain + '/' +
+    purchase.token + '/' + name + '.' + purchase.ext
+}
+
+
+/**
+ * Output a static URL
+ * @param {string} sha1
+ * @param {string} ext
+ * @param {string} name
+ * @return {string}
+ */
+Prism.prototype.urlStatic = function(sha1,ext,name){
+  var that = this
+  name = name || 'file'
+  ext = ext || 'bin'
+  return 'http://' + that.opts.domain + '/static/' +
+    this.value + '/' + name + '.' + ext
+}
+
+
+/**
  * Export Prism
  * @type {Prism}
  */

@@ -30,6 +30,13 @@ exports.NotFoundError = require('./helpers/NotFoundError')
 
 
 /**
+ * Prism helper
+ * @type {Prism}
+ */
+exports.Prism = require('./helpers/Prism')
+
+
+/**
  * User space error
  * @type {UserError}
  */
