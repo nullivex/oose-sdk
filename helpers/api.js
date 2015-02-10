@@ -191,6 +191,13 @@ exports.tcpErrors = tcpErrors
 
 
 /**
+ * Make URL
+ * @type {Function}
+ */
+exports.makeURL = makeURL
+
+
+/**
  * Validate API response
  * @type {Function}
  */
@@ -202,6 +209,20 @@ exports.validateResponse = validateResponse
  * @type {Function}
  */
 exports.handleNetworkError = handleNetworkError
+
+
+/**
+ * Setup request
+ * @type {Function}
+ */
+exports.setupRequest = setupRequest
+
+
+/**
+ * Extend request
+ * @type {Function}
+ */
+exports.extendRequest = extendRequest
 
 
 /**
