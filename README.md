@@ -75,6 +75,9 @@ describe('my test',function(){
 
 ## Changelog
 
+### 1.1.3
+* Increase default max sockets
+
 ### 1.1.2
 * Expose more of the API subsystem so it can be extended properly
 

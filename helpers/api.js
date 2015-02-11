@@ -41,7 +41,7 @@ var tcpErrors = [
 var cache = {}
 
 var config = {
-  maxSockets: 8,
+  maxSockets: 1024,
   sessionTokenName: 'X-OOSE-Token',
   master: {
     port: 3001,
