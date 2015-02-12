@@ -3,6 +3,7 @@ var P = require('bluebird')
 var debug = require('debug')('oose-sdk:api')
 var ObjectManage = require('object-manage')
 var request = require('request')
+var util = require('util')
 
 var NetworkError = require('../helpers/NetworkError')
 var UserError = require('../helpers/UserError')
@@ -41,7 +42,7 @@ var tcpErrors = [
 var cache = {}
 
 var config = {
-  maxSockets: 1024,
+  maxSockets: Infinity,
   sessionTokenName: 'X-OOSE-Token',
   master: {
     port: 3001,
@@ -90,14 +91,14 @@ var validateResponse = function(){
       else
         throw new UserError(body)
     }
-    if(200 !== res.statusCode){
-      throw new UserError(
-        'Invalid response code (' + res.statusCode + ')' +
-        ' to ' + res.method + ': ' + res.url)
-    }
     if(body.error){
       if(body.error.message) throw new UserError(body.error.message)
       if(body.error) throw new UserError(body.error)
+    }
+    if(200 !== res.statusCode){
+      throw new UserError(
+        'Invalid response (' + res.statusCode + ')' +
+        ' to ' + res.request.href + ' body: ' + util.inspect(body))
     }
     return [res,body]
   }
@@ -275,15 +276,16 @@ exports.store = function(options){
  * Set session on any request object
  * @param {object} session
  * @param {request} request
+ * @param {string} tokenName
  * @return {request}
  */
-exports.setSession = function(session,request){
+exports.setSession = function(session,request,tokenName){
   var cacheKey = request.options.type + ':' + request.options.host +
     ':' + request.options.port + ':' + session.token
   if(!cache[cacheKey]){
     debug('cache miss',cacheKey)
     var newOptions = {headers: {}}
-    newOptions.headers[config.sessionTokenName] = session.token
+    newOptions.headers[tokenName || config.sessionTokenName] = session.token
     var req = request.defaults(newOptions)
     req = extendRequest(req,request.options.type,request.options)
     cache[cacheKey] = req

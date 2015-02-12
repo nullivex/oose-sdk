@@ -75,6 +75,11 @@ describe('my test',function(){
 
 ## Changelog
 
+### 1.1.4
+* Fix and test error handling for validateResponse
+* Change default maxSocket to Infinity
+* Add session token name to setupSession call instead of config
+
 ### 1.1.3
 * Increase default max sockets
 

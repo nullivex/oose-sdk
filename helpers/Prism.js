@@ -124,7 +124,7 @@ Prism.prototype.prepare = function(request,session){
   var that = this
   if(!request) request = that.api
   if(!session) session = that.session
-  var client = api.setSession(session,request)
+  var client = api.setSession(session,request,'X-OOSE-Token')
   return P.try(function(){
     if(!that.isConnected()) throw new UserError('Not connected')
     if(!that.isAuthenticated()) throw new UserError('Not authenticated')
