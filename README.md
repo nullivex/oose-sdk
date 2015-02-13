@@ -75,6 +75,9 @@ describe('my test',function(){
 
 ## Changelog
 
+### 1.1.5
+* Drop user session timeout, they are now sticky
+
 ### 1.1.4
 * Fix and test error handling for validateResponse
 * Change default maxSocket to Infinity

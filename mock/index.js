@@ -97,13 +97,6 @@ app.post('/user/password/reset',validateSession,function(req,res){
     password: user.password
   })
 })
-app.post('/user/session/renew',validateSession,function(req,res){
-  var session = user.session
-  session.expires = new Date(req.body.expires)
-  res.json({
-    session: session
-  })
-})
 app.post('/user/session/validate',validateSession,function(req,res){
   res.json({success: 'Session Valid'})
 })
