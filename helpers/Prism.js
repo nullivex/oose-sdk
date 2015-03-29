@@ -7,7 +7,6 @@ var path = require('path')
 var random = require('random-js')()
 
 var api = require('./api')
-var NetworkError = require('./NetworkError')
 var UserError = require('./UserError')
 
 //make some promises
@@ -55,6 +54,18 @@ Prism.prototype.isConnected = function(){
  */
 Prism.prototype.isAuthenticated = function(){
   return this.authenticated
+}
+
+
+/**
+ * Set the session statically
+ * @param {string} sessionToken
+ * @return {Prism}
+ */
+Prism.prototype.setSession = function(sessionToken){
+  this.session = {token: sessionToken}
+  this.authenticated = true
+  return this
 }
 
 

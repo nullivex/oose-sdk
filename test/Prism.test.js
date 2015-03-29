@@ -130,4 +130,14 @@ describe('Prism',function(){
       mock.content.sha1 + '/file.' + mock.content.ext
     )
   })
+  it('should connect with a session key',function(){
+    var prism = new Prism().setSession(mock.user.session.token)
+    return prism.connect(mockConfig.prism.host,mockConfig.prism.port)
+      .then(function(){
+        return prism.contentDetail(mock.content.sha1)
+      })
+      .then(function(result){
+        expect(result).to.be.an('object')
+      })
+  })
 })

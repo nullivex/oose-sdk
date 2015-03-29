@@ -75,6 +75,10 @@ describe('my test',function(){
 
 ## Changelog
 
+### 1.1.6
+* Enable sticky session support.
+* Add helper for generating session keys.
+
 ### 1.1.5
 * Drop user session timeout, they are now sticky
 
