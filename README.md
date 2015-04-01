@@ -75,6 +75,9 @@ describe('my test',function(){
 
 ## Changelog
 
+### 1.1.7
+* Fixed issue with keygen getting installed as the `ndt` command
+
 ### 1.1.6
 * Enable sticky session support.
 * Add helper for generating session keys.
