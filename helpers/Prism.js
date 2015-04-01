@@ -102,15 +102,17 @@ Prism.prototype.connect = function(host,port){
 
 /**
  * Authenticate the session
+ * @param {string} username
+ * @param {string} password
  * @return {P}
  */
-Prism.prototype.login = function(){
+Prism.prototype.login = function(username,password){
   var that = this
   return that.api.postAsync({
     url: that.api.url('/user/login'),
     json: {
-      username: that.opts.username,
-      password: that.opts.password
+      username: username || that.opts.username,
+      password: password || that.opts.password
     }
   })
     .spread(that.api.validateResponse())

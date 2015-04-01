@@ -19,6 +19,7 @@
     "bluebird": "^2.3.11",
     "body-parser": "^1.9.2",
     "busboy": "^0.2.9",
+    "commander": "^2.7.1",
     "debug": "^2.1.1",
     "express": "^4.10.2",
     "graceful-fs": "^3.0.5",
@@ -29,6 +30,9 @@
     "request": "^2.48.0",
     "sha1-stream": "^0.1.0",
     "temp": "^0.8.1"
+  },
+  "bin": {
+    "ndt": "./bin/oose-keygen"
   },
   "scripts": {
     "start": "node app",

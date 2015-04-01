@@ -78,6 +78,7 @@ describe('my test',function(){
 ### 1.1.6
 * Enable sticky session support.
 * Add helper for generating session keys.
+* Prism login now takes username and password at call time `prism.login(un,pw)`
 
 ### 1.1.5
 * Drop user session timeout, they are now sticky
