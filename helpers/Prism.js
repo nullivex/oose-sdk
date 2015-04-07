@@ -4,7 +4,6 @@ var dns = require('dns')
 var fs = require('graceful-fs')
 var ObjectManage = require('object-manage')
 var path = require('path')
-var random = require('random-js')()
 
 var api = require('./api')
 var UserError = require('./UserError')
@@ -83,19 +82,13 @@ Prism.prototype.connect = function(host,port){
       if(port) that.opts.prism.port = port
       that.connected = true
       that.api = api.prism(that.opts.prism)
-      return host
     } else {
-      return dns.resolve4Async(that.opts.domain)
-        .then(function(result){
-          if(!(result instanceof Array) || 0 === result.length)
-            throw new UserError('Could not locate a prism')
-          var host = result[random.integer(0,(result.length - 1))]
-          that.opts.prism.host = host
-          that.connected = true
-          that.api = api.prism(that.opts.prism)
-          return host
-        })
+      that.opts.prism.host = that.opts.domain
+      that.opts.prism.port = port || 5971
+      that.connected = true
+      that.api = api.prism(that.opts.prism)
     }
+    return host || that.opts.prism.host
   })
 }
 

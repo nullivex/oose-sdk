@@ -75,6 +75,9 @@ describe('my test',function(){
 
 ## Changelog
 
+### 1.1.8
+* Use the domain to make prism requests to that SSL will validate properly.
+
 ### 1.1.7
 * Fixed issue with keygen getting installed as the `ndt` command
 
