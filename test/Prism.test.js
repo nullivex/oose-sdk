@@ -8,6 +8,9 @@ var path = require('path')
 var mock = require('../mock')
 var Prism = require('../helpers/Prism')
 
+//prevent bad cert errors during testing
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
+
 var mockConfig = {
   prism: {
     port: 3000,

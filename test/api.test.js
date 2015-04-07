@@ -6,6 +6,9 @@ var https = require('https')
 
 var mock = require('../mock')
 
+//prevent bad cert errors during testing
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
+
 var app = express()
 var server = https.createServer(
   {

@@ -2,6 +2,9 @@
 var e2e = require('./helpers/e2e')
 var mock = require('../mock')
 
+//prevent bad cert errors during testing
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
+
 var mockConfig = {
   prism: {
     port: 3000,
