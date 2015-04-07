@@ -10,10 +10,6 @@ var NetworkError = require('../../helpers/NetworkError')
 var pkg = require('../../package.json')
 var UserError = require('../../helpers/UserError')
 
-//load promises here
-var P = require('bluebird')
-//P.longStackTraces() //enable long stack traces for debugging only
-
 
 /**
  * API Timeout for outage testing
