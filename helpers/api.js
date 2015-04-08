@@ -8,6 +8,9 @@ var util = require('util')
 var NetworkError = require('../helpers/NetworkError')
 var UserError = require('../helpers/UserError')
 
+//dont very low level certs by default
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0
+
 var tcpErrors = [
   'EINTR',
   'EBADF',

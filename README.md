@@ -75,6 +75,11 @@ describe('my test',function(){
 
 ## Changelog
 
+### 1.1.10
+* Since node has started checking SSL certs without giving the user a chance
+to intervene we  have to set `rejectUnauthorized: false` by default now. Have
+also had to add `process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0` unfortunately.
+
 ### 1.1.9
 * Fix issues using latest version of node request.
 
