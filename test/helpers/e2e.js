@@ -178,7 +178,8 @@ exports.prismLogout = function(prism,session){
     var client = api.setSession(session,api.prism(prism.prism))
     return client.postAsync({
       url: client.url('/user/logout'),
-      localAddress: '127.0.0.1'
+      localAddress: '127.0.0.1',
+      json: true
     })
       .spread(function(res,body){
         expect(body.success).to.equal('User logged out')
@@ -201,6 +202,7 @@ exports.contentUpload = function(prism){
         formData: {
           file: fs.createReadStream(content.file)
         },
+        json: true,
         localAddress: '127.0.0.1'
       })
       .spread(function(res,body){

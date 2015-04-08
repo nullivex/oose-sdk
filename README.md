@@ -75,6 +75,9 @@ describe('my test',function(){
 
 ## Changelog
 
+### 1.1.9
+* Fix issues using latest version of node request.
+
 ### 1.1.8
 * Use the domain to make prism requests to that SSL will validate properly.
 

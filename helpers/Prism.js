@@ -150,7 +150,8 @@ Prism.prototype.logout = function(){
     .then(function(result){
       client = result
       return client.postAsync({
-        url: client.url('/user/logout')
+        url: client.url('/user/logout'),
+        json: true
       })
     })
     .spread(that.api.validateResponse())
@@ -249,6 +250,7 @@ Prism.prototype.contentUpload = function(filepath){
       client = result
       return client.postAsync({
         url: client.url('/content/upload'),
+        json: true,
         formData: {
           file: fs.createReadStream(path.resolve(filepath))
         }
