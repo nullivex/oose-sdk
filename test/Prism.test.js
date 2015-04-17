@@ -108,7 +108,8 @@ describe('Prism',function(){
       })
   })
   it('should purchase content',function(){
-    return prism.contentPurchase(mock.content.sha1,['foo'],mock.purchase.life)
+    return prism.contentPurchase(
+      mock.content.sha1,mock.content.ext,['foo'],mock.purchase.life)
       .then(function(result){
         expect(result.token).to.equal(mock.purchase.token)
       })

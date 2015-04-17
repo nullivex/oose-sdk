@@ -296,11 +296,12 @@ Prism.prototype.contentRetrieve = function(request,fileExtension){
 /**
  * Purchase Content
  * @param {string} sha1
+ * @param {string} ext
  * @param {array} referrer
  * @param {number} life
  * @return {P}
  */
-Prism.prototype.contentPurchase = function(sha1,referrer,life){
+Prism.prototype.contentPurchase = function(sha1,ext,referrer,life){
   var that = this
   var client = {}
   return that.prepare()
@@ -310,6 +311,7 @@ Prism.prototype.contentPurchase = function(sha1,referrer,life){
         url: client.url('/content/purchase'),
         json: {
           sha1: sha1,
+          ext: ext,
           referrer: referrer,
           life: life
         }

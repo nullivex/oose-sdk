@@ -196,6 +196,7 @@ app.post('/content/retrieve',validateSession,function(req,res){
 })
 app.post('/content/purchase',validateSession,function(req,res){
   var sha1 = req.body.sha1
+  var ext = req.body.ext
   var referrer = req.body.referrer
   var life = req.body.life
   if(!sha1){
@@ -205,6 +206,7 @@ app.post('/content/purchase',validateSession,function(req,res){
   detail.life = life || detail.life
   detail.referrer = referrer || detail.referrer
   detail.sha1 = sha1
+  detail.ext = ext
   res.json(detail)
 })
 app.post('/content/purchase/remove',validateSession,function(req,res){

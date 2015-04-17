@@ -75,6 +75,10 @@ describe('my test',function(){
 
 ## Changelog
 
+### 1.2.0
+* Purchases now require the file extension and will no longer supply it this
+is a breaking change to all integrations.
+
 ### 1.1.10
 * Since node has started checking SSL certs without giving the user a chance
 to intervene we  have to set `rejectUnauthorized: false` by default now. Have
