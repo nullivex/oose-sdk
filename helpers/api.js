@@ -8,6 +8,10 @@ var util = require('util')
 var NetworkError = require('../helpers/NetworkError')
 var UserError = require('../helpers/UserError')
 
+//set a default timeout
+//equiv to timeout max in node.js/lib/timers.js
+request = request.defaults({timeout: 2147483647})
+
 //dont very low level certs by default
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0
 
@@ -165,20 +169,22 @@ var setupRequest = function(type,options){
   var cacheKey = type + ':' + options.host + ':' + options.port
   if(!cache[cacheKey]){
     debug('cache miss',cacheKey)
-    var req = request.defaults({
+    var reqDefaults = {
       rejectUnauthorized: false,
       json: true,
       timeout:
-      process.env.REQUEST_TIMEOUT ||
-      options.timeout ||
-      config[type].timeout ||
-      null,
+        +process.env.REQUEST_TIMEOUT ||
+        +options.timeout ||
+        +config[type].timeout ||
+        2147483647, //equiv to timeout max in node.js/lib/timers.js
       pool: pool,
       auth: {
         username: options.username || config[type].username,
         password: options.password || config[type].password
       }
-    })
+    }
+    console.log(reqDefaults.timeout)
+    var req = request.defaults(reqDefaults)
     cache[cacheKey] = extendRequest(req,type,options)
   } else {
     debug('cache hit',cacheKey)
@@ -189,7 +195,7 @@ var setupRequest = function(type,options){
 
 /**
  * Array of TCP errors
- * @type {array}
+ * @type {Array}
  */
 exports.tcpErrors = tcpErrors
 

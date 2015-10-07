@@ -75,6 +75,13 @@ describe('my test',function(){
 
 ## Changelog
 
+### 1.4.0
+
+* Upgraded to run with node 4.x
+* Skipped version 1.3.x to match the main OOSE release of 1.4.0
+* Upgraded all dependencies
+* Fixed bug that causes timeout `msecs not a number issue`
+
 ### 1.2.0
 * Purchases now require the file extension and will no longer supply it this
 is a breaking change to all integrations.
