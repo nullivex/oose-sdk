@@ -75,6 +75,10 @@ describe('my test',function(){
 
 ## Changelog
 
+### 1.4.1
+
+* Remove a mistakenly left console log.
+
 ### 1.4.0
 
 * Upgraded to run with node 4.x

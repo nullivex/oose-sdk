@@ -183,7 +183,6 @@ var setupRequest = function(type,options){
         password: options.password || config[type].password
       }
     }
-    console.log(reqDefaults.timeout)
     var req = request.defaults(reqDefaults)
     cache[cacheKey] = extendRequest(req,type,options)
   } else {
