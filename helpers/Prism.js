@@ -164,54 +164,6 @@ Prism.prototype.logout = function(){
 
 
 /**
- * Reset your password
- * @return {P}
- */
-Prism.prototype.passwordReset = function(){
-  var that = this
-  var client = {}
-  return that.prepare()
-    .then(function(result){
-      client = result
-      return client.postAsync({
-        url: client.url('/user/password/reset')
-      })
-    })
-    .spread(that.api.validateResponse())
-    .spread(function(res,body){
-      return body
-    })
-    .catch(that.handleNetworkError)
-}
-
-
-/**
- * Update the session by adding data
- * @param {object} data
- * @return {P}
- */
-Prism.prototype.sessionUpdate = function(data){
-  var that = this
-  var client = {}
-  return that.prepare()
-    .then(function(result){
-      client = result
-      return client.postAsync({
-        url: client.url('/user/session/update'),
-        json: {
-          data: data || {}
-        }
-      })
-    })
-    .spread(that.api.validateResponse())
-    .spread(function(res,body){
-      return body
-    })
-    .catch(that.handleNetworkError)
-}
-
-
-/**
  * Content detail
  * @param {string} sha1
  * @return {P}

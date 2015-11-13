@@ -75,6 +75,11 @@ describe('my test',function(){
 
 ## Changelog
 
+### 2.0.0
+* Update packages and dependencies
+* Drop API methods removed in OOSE 2.0.0
+ * `passwordReset`
+
 ### 1.4.1
 
 * Remove a mistakenly left console log.

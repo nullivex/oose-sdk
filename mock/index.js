@@ -91,19 +91,8 @@ app.post('/user/login',function(req,res){
 app.post('/user/logout',validateSession,function(req,res){
   res.json({success: 'User logged out'})
 })
-app.post('/user/password/reset',validateSession,function(req,res){
-  res.json({
-    success: 'User password reset',
-    password: user.password
-  })
-})
 app.post('/user/session/validate',validateSession,function(req,res){
   res.json({success: 'Session Valid'})
-})
-app.post('/user/session/update',validateSession,function(req,res){
-  if(req.body.data)
-    user.session.data = JSON.stringify(req.body.data)
-  res.json(user.session)
 })
 
 //content functions

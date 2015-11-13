@@ -18,9 +18,6 @@ module.exports = {
   map: {
     exists: true,
     count: 2,
-    map: {
-      prism1: {exists: true, count: 1, map: {store1: true, store2: false}},
-      prism2: {exists: true, count: 1, map: {store3: true, store4: false}}
-    }
+    map: ['prism1:store1','prism2:store3']
   }
 }

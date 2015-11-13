@@ -73,19 +73,6 @@ describe('Prism',function(){
         expect(client.options.port).to.equal(mockConfig.prism.port)
       })
   })
-  it('should reset the password',function(){
-    return prism.passwordReset()
-      .then(function(result){
-        expect(result.password).to.equal(mock.user.password)
-      })
-  })
-  it('should update the session',function(){
-    return prism.sessionUpdate({foo: 'bar'})
-      .then(function(result){
-        var data = JSON.parse(result.data)
-        expect(data.foo).to.equal('bar')
-      })
-  })
   it('should get content detail',function(){
     return prism.contentDetail(mock.content.sha1)
       .then(function(result){

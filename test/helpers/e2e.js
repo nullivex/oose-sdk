@@ -10,6 +10,10 @@ var NetworkError = require('../../helpers/NetworkError')
 var pkg = require('../../package.json')
 var UserError = require('../../helpers/UserError')
 
+//load promises here
+//var P = require('bluebird')
+//P.longStackTraces() //enable long stack traces for debugging only
+
 
 /**
  * API Timeout for outage testing
@@ -230,7 +234,7 @@ exports.contentDetail = function(prism){
         expect(body.sha1).to.equal(content.sha1)
         expect(body.count).to.be.greaterThan(0)
         expect(body.exists).to.equal(true)
-        expect(body.map).to.be.an('object')
+        expect(body.map).to.be.an('array')
       })
   }
 }
