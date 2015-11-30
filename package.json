@@ -2,7 +2,7 @@
   "author": "Bryan Tong <contact@nullivex.com>",
   "name": "oose-sdk",
   "description": "OOSE development tools for applications",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "homepage": "http://www.oose.io/",
   "repository": {
     "type": "git",

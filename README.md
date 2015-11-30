@@ -75,6 +75,9 @@ describe('my test',function(){
 
 ## Changelog
 
+### 2.0.1
+* Fix issue with keygen passing configuration params
+
 ### 2.0.0
 * Update packages and dependencies
 * Drop API methods removed in OOSE 2.0.0

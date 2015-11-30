@@ -19,8 +19,10 @@ program
  * @type {{host: string, port: string}}
  */
 var prismConfig = {
-  host: program.host || null,
-  port: program.port || 5971
+  prism: {
+    host: program.host || null,
+    port: program.port || 5971
+  }
 }
 
 //setup our prism handle
