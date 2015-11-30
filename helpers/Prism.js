@@ -83,8 +83,8 @@ Prism.prototype.connect = function(host,port){
       that.connected = true
       that.api = api.prism(that.opts.prism)
     } else {
-      that.opts.prism.host = that.opts.domain
-      that.opts.prism.port = port || 5971
+      if(!that.opts.prism.host) that.opts.prism.host = that.opts.domain
+      if(!that.opts.prism.port) that.opts.prism.port = port || 5971
       that.connected = true
       that.api = api.prism(that.opts.prism)
     }

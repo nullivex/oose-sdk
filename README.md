@@ -77,6 +77,7 @@ describe('my test',function(){
 
 ### 2.0.1
 * Fix issue with keygen passing configuration params
+* Fix issue with Prism class wrongfully falling back on configuration params
 
 ### 2.0.0
 * Update packages and dependencies

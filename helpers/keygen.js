@@ -1,6 +1,7 @@
 'use strict';
 var program = require('commander')
 
+var Prism = require('./Prism')
 var UserError = require('./UserError')
 
 var pkg = require('../package.json')
@@ -14,19 +15,13 @@ program
   .parse(process.argv)
 
 
-/**
- * Prism Config
- * @type {{host: string, port: string}}
- */
-var prismConfig = {
+//setup our prism handle
+var prism = new Prism({
   prism: {
     host: program.host || null,
     port: program.port || 5971
   }
-}
-
-//setup our prism handle
-var prism = new (require('./Prism'))(prismConfig)
+})
 
 //connect
 prism.connect()
