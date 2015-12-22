@@ -110,14 +110,14 @@ describe('Prism',function(){
   it('should output a purchase url',function(){
     var url = prism.urlPurchase(mock.purchase)
     expect(url).to.equal(
-      'http://' + prism.opts.domain + '/' +
+      '//' + prism.opts.domain + '/' +
       mock.purchase.token + '/' + 'video.' + mock.purchase.ext
     )
   })
   it('should output a static url',function(){
     var url = prism.urlStatic(mock.content.sha1,mock.content.ext)
     expect(url).to.equal(
-      'http://' + prism.opts.domain + '/static/' +
+      '//' + prism.opts.domain + '/static/' +
       mock.content.sha1 + '/file.' + mock.content.ext
     )
   })
