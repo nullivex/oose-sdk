@@ -312,7 +312,7 @@ Prism.prototype.contentPurchaseRemove = function(token){
 Prism.prototype.urlPurchase = function(purchase,name){
   var that = this
   name = name || 'video'
-  return 'http://' + that.opts.domain + '/' +
+  return '//' + that.opts.domain + '/' +
     purchase.token + '/' + name + '.' + purchase.ext
 }
 
@@ -328,7 +328,7 @@ Prism.prototype.urlStatic = function(sha1,ext,name){
   var that = this
   name = name || 'file'
   ext = ext || 'bin'
-  return 'http://' + that.opts.domain + '/static/' +
+  return '//' + that.opts.domain + '/static/' +
     sha1 + '/' + name + '.' + ext
 }
 

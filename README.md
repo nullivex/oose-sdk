@@ -75,6 +75,9 @@ describe('my test',function(){
 
 ## Changelog
 
+### 2.0.2
+* URL builder helpers no longer produce protocol forced URLs such as (http://)
+
 ### 2.0.1
 * Fix issue with keygen passing configuration params
 * Fix issue with Prism class wrongfully falling back on configuration params
