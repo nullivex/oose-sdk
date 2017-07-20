@@ -154,7 +154,7 @@ var extendRequest = function(req,type,options){
   req.url = makeURL(options)
   req.validateResponse = validateResponse
   req.handleNetworkError = handleNetworkError
-  P.promisifyAll(req)
+  P.promisifyAll(req,{multiArgs:true})
   return req
 }
 
