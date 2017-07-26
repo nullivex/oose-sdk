@@ -75,6 +75,10 @@ describe('my test',function(){
 
 ## Changelog
 
+### 2.1.0
+* Update dependencies and bluebird implementation
+*
+
 ### 2.0.2
 * URL builder helpers no longer produce protocol forced URLs such as (http://)
 

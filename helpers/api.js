@@ -12,7 +12,11 @@ var UserError = require('../helpers/UserError')
 //equiv to timeout max in node.js/lib/timers.js
 request = request.defaults({timeout: 2147483647})
 
-//dont very low level certs by default
+
+/**
+ * Allow self signed certs
+ * @type {number}
+ */
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0
 
 var tcpErrors = [
@@ -154,7 +158,7 @@ var extendRequest = function(req,type,options){
   req.url = makeURL(options)
   req.validateResponse = validateResponse
   req.handleNetworkError = handleNetworkError
-  P.promisifyAll(req)
+  P.promisifyAll(req,{multiArgs: true})
   return req
 }
 
