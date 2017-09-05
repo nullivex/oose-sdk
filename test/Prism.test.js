@@ -8,7 +8,11 @@ var path = require('path')
 var mock = require('../mock')
 var Prism = require('../helpers/Prism')
 
-//prevent bad cert errors during testing
+
+/**
+ * Suppress warnings for bad ssl certs
+ * @type {string}
+ */
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
 
 var mockConfig = {
@@ -74,15 +78,15 @@ describe('Prism',function(){
       })
   })
   it('should get content detail',function(){
-    return prism.contentDetail(mock.content.sha1)
+    return prism.contentDetail(mock.content.hash)
       .then(function(result){
-        expect(result.sha1).to.equal(mock.content.sha1)
+        expect(result.hash).to.equal(mock.content.hash)
       })
   })
   it('should upload content',function(){
     return prism.contentUpload(mock.content.file)
       .then(function(result){
-        expect(result.files.file.sha1).to.equal(mock.content.sha1)
+        expect(result.files.file.hash).to.equal(mock.content.hash)
       })
   })
   it('should retrieve content',function(){
@@ -91,12 +95,12 @@ describe('Prism',function(){
         ':' + mockServerConfig.port + '/' + mock.content.filename
     })
       .then(function(result){
-        expect(result.sha1).to.equal(mock.content.sha1)
+        expect(result.hash).to.equal(mock.content.hash)
       })
   })
   it('should purchase content',function(){
     return prism.contentPurchase(
-      mock.content.sha1,mock.content.ext,['foo'],mock.purchase.life)
+      mock.content.hash,mock.content.ext,['foo'],mock.purchase.life)
       .then(function(result){
         expect(result.token).to.equal(mock.purchase.token)
       })
@@ -115,17 +119,17 @@ describe('Prism',function(){
     )
   })
   it('should output a static url',function(){
-    var url = prism.urlStatic(mock.content.sha1,mock.content.ext)
+    var url = prism.urlStatic(mock.content.hash,mock.content.ext)
     expect(url).to.equal(
       '//' + prism.opts.domain + '/static/' +
-      mock.content.sha1 + '/file.' + mock.content.ext
+      mock.content.hash + '/file.' + mock.content.ext
     )
   })
   it('should connect with a session key',function(){
     var prism = new Prism().setSession(mock.user.session.token)
     return prism.connect(mockConfig.prism.host,mockConfig.prism.port)
       .then(function(){
-        return prism.contentDetail(mock.content.sha1)
+        return prism.contentDetail(mock.content.hash)
       })
       .then(function(result){
         expect(result).to.be.an('object')

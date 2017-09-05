@@ -75,6 +75,10 @@ describe('my test',function(){
 
 ## Changelog
 
+### 2.2.1
+* Change mock structure to support the idea of the "hash" name for identifying
+files vs the "sha1" name that predetermined the type of hash being used.
+
 ### 2.2.0
 * Drop old access setup shortcuts that were related dynamic services
 * BREAKING CHANGE: api.prism(), api.store() need to replaced with

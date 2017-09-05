@@ -211,7 +211,7 @@ exports.contentUpload = function(prism){
         localAddress: '127.0.0.1'
       })
       .spread(function(res,body){
-        expect(body.files.file.sha1).to.equal(content.sha1)
+        expect(body.files.file.hash).to.equal(content.hash)
       })
   }
 }
@@ -229,11 +229,11 @@ exports.contentDetail = function(prism){
     return client
       .postAsync({
         url: client.url('/content/detail'),
-        json: {sha1: content.sha1},
+        json: {hash: content.hash},
         localAddress: '127.0.0.1'
       })
       .spread(function(res,body){
-        expect(body.sha1).to.equal(content.sha1)
+        expect(body.hash).to.equal(content.hash)
         expect(body.count).to.be.greaterThan(0)
         expect(body.exists).to.equal(true)
         expect(body.map).to.be.an('array')
@@ -255,7 +255,7 @@ exports.contentPurchase = function(prism){
       .postAsync({
         url: client.url('/content/purchase'),
         json: {
-          sha1: content.sha1,
+          hash: content.hash,
           ext: content.ext,
           ip: '127.0.0.1',
           referrer: ['localhost']
@@ -266,7 +266,7 @@ exports.contentPurchase = function(prism){
         expect(body.token.length).to.equal(64)
         expect(body.ext).to.equal('txt')
         expect(body.life).to.equal(21600)
-        expect(body.sha1).to.equal(content.sha1)
+        expect(body.hash).to.equal(content.hash)
         expect(body.referrer).to.be.an('array')
         expect(body.referrer[0]).to.equal('localhost')
         return body

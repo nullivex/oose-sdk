@@ -7,6 +7,7 @@ var content = require('./content')
  * @type {object}
  */
 module.exports = {
+  hash: content.hash,
   sha1: content.sha1,
   ext: content.ext,
   token: '27p5Ujk4xNRqdj1anKb4128GWu7b8n30p8FN3wJk1VS4aMD7Bf5Ad21DU67U11Cl',

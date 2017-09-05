@@ -98,7 +98,8 @@ app.post('/user/session/validate',validateSession,function(req,res){
 //content functions
 app.post('/content/detail',validateSession,function(req,res){
   var detail = contentExists
-  detail.sha1 = req.body.sha1
+  detail.hash = req.body.hash || req.body.sha1
+  detail.sha1 = req.body.hash || req.body.sha1
   res.json(detail)
 })
 app.post('/content/upload',validateSession,function(req,res){
@@ -126,12 +127,12 @@ app.post('/content/upload',validateSession,function(req,res){
       encoding: encoding,
       mimetype: mimetype,
       ext: mime.extension(mimetype),
-      sha1: null
+      hash: null
     }
     filePromises.push(
       promisePipe(file,sniff,writeStream)
         .then(function(){
-          files[key].sha1 = sniff.sha1
+          files[key].hash = sniff.hash
         })
     )
   })
@@ -161,7 +162,7 @@ app.post('/content/retrieve',validateSession,function(req,res){
   var retrieveRequest = req.body.request
   var extension = req.body.extension || 'bin'
   var sniff = sha1stream.createStream()
-  var sha1
+  var hash
   P.try(function(){
     return promisePipe(request(retrieveRequest),sniff)
       .then(
@@ -170,9 +171,9 @@ app.post('/content/retrieve',validateSession,function(req,res){
     )
   })
     .then(function(){
-      sha1 = sniff.sha1
+      hash = sniff.hash
       res.json({
-        sha1: sha1,
+        hash: hash,
         extension: extension
       })
     })
@@ -184,17 +185,18 @@ app.post('/content/retrieve',validateSession,function(req,res){
     })
 })
 app.post('/content/purchase',validateSession,function(req,res){
-  var sha1 = req.body.sha1
+  var hash = req.body.hash || req.body.sha1
   var ext = req.body.ext
   var referrer = req.body.referrer
   var life = req.body.life
-  if(!sha1){
+  if(!hash){
     res.json({error: 'No SHA1 passed for purchase'})
   }
   var detail = purchase
   detail.life = life || detail.life
   detail.referrer = referrer || detail.referrer
-  detail.sha1 = sha1
+  detail.hash = hash
+  detail.sha1 = hash
   detail.ext = ext
   res.json(detail)
 })

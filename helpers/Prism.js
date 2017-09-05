@@ -165,10 +165,10 @@ Prism.prototype.logout = function(){
 
 /**
  * Content detail
- * @param {string} sha1
+ * @param {string} hash
  * @return {P}
  */
-Prism.prototype.contentDetail = function(sha1){
+Prism.prototype.contentDetail = function(hash){
   var that = this
   var client = {}
   return that.prepare()
@@ -177,7 +177,7 @@ Prism.prototype.contentDetail = function(sha1){
       return client.postAsync({
         url: client.url('/content/detail'),
         json: {
-          sha1: sha1
+          hash: hash
         }
       })
     })
@@ -247,13 +247,13 @@ Prism.prototype.contentRetrieve = function(request,fileExtension){
 
 /**
  * Purchase Content
- * @param {string} sha1
+ * @param {string} hash
  * @param {string} ext
  * @param {array} referrer
  * @param {number} life
  * @return {P}
  */
-Prism.prototype.contentPurchase = function(sha1,ext,referrer,life){
+Prism.prototype.contentPurchase = function(hash,ext,referrer,life){
   var that = this
   var client = {}
   return that.prepare()
@@ -262,7 +262,7 @@ Prism.prototype.contentPurchase = function(sha1,ext,referrer,life){
       return client.postAsync({
         url: client.url('/content/purchase'),
         json: {
-          sha1: sha1,
+          hash: hash,
           ext: ext,
           referrer: referrer,
           life: life
@@ -319,17 +319,17 @@ Prism.prototype.urlPurchase = function(purchase,name){
 
 /**
  * Output a static URL
- * @param {string} sha1
+ * @param {string} hash
  * @param {string} ext
  * @param {string} name
  * @return {string}
  */
-Prism.prototype.urlStatic = function(sha1,ext,name){
+Prism.prototype.urlStatic = function(hash,ext,name){
   var that = this
   name = name || 'file'
   ext = ext || 'bin'
   return '//' + that.opts.domain + '/static/' +
-    sha1 + '/' + name + '.' + ext
+    hash + '/' + name + '.' + ext
 }
 
 

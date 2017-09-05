@@ -11,6 +11,8 @@ module.exports = {
   data: 'The fox is brown',
   type: 'text/plain',
   ext: 'txt',
+  hash: 'a03f181dc7dedcfb577511149b8844711efdb04f',
+  badHash: 'a03f181dc7dedcfb577511149b8844711efdb04f',
   sha1: 'a03f181dc7dedcfb577511149b8844711efdb04f',
   sha1Bogus: 'a03f181dc7dedcfb577511149b8844711efdb04e',
   relativePath:
