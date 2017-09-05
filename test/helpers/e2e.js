@@ -48,7 +48,7 @@ exports.purchase = {}
  */
 exports.checkUp = function(type,server){
   return function(){
-    var client = api[type](server[type])
+    var client = api.setupAccess(type,server[type])
     return client.postAsync({url: client.url('/ping'), timeout: 50})
       .spread(function(res,body){
         expect(body.pong).to.equal('pong')
@@ -65,7 +65,7 @@ exports.checkUp = function(type,server){
  */
 exports.checkDown = function(type,server){
   return function(){
-    var client = api[type](server[type])
+    var client = api.setupAccess(type,server[type])
     return client.postAsync({url: client.url('/ping'), timeout: 50})
       .then(function(){
         throw new Error('Server not down')
@@ -85,7 +85,7 @@ exports.checkDown = function(type,server){
  */
 exports.checkPublic = function(prism){
   return function(){
-    var client = api.prism(prism.prism)
+    var client = api.setupAccess('prism',prism.prism)
     return client
       .postAsync(client.url('/'))
       .spread(client.validateResponse())
@@ -118,7 +118,7 @@ exports.checkPublic = function(prism){
  */
 exports.checkProtected = function(prism){
   return function(){
-    var client = api.prism(prism.prism)
+    var client = api.setupAccess('prism',prism.prism)
     return client.postAsync(client.url('/user/logout'))
       .catch(UserError,function(err){
         expect(err.message).to.match(/Invalid response code \(401\) to POST/)
@@ -154,7 +154,7 @@ exports.checkProtected = function(prism){
  */
 exports.prismLogin = function(prism){
   return function(){
-    var client = api.prism(prism.prism)
+    var client = api.setupAccess('prism',prism.prism)
     return client.postAsync({
       url: client.url('/user/login'),
       json: {
@@ -179,7 +179,7 @@ exports.prismLogin = function(prism){
  */
 exports.prismLogout = function(prism,session){
   return function(){
-    var client = api.setSession(session,api.prism(prism.prism))
+    var client = api.setSession(session,api.setupAccess('prism',prism.prism))
     return client.postAsync({
       url: client.url('/user/logout'),
       localAddress: '127.0.0.1',
@@ -199,7 +199,8 @@ exports.prismLogout = function(prism,session){
  */
 exports.contentUpload = function(prism){
   return function(){
-    var client = api.setSession(exports.user.session,api.prism(prism.prism))
+    var client = api.setSession(
+      exports.user.session,api.setupAccess('prism',prism.prism))
     return client
       .postAsync({
         url: client.url('/content/upload'),
@@ -223,7 +224,8 @@ exports.contentUpload = function(prism){
  */
 exports.contentDetail = function(prism){
   return function(){
-    var client = api.setSession(exports.user.session,api.prism(prism.prism))
+    var client = api.setSession(
+      exports.user.session,api.setupAccess('prism',prism.prism))
     return client
       .postAsync({
         url: client.url('/content/detail'),
@@ -247,7 +249,8 @@ exports.contentDetail = function(prism){
  */
 exports.contentPurchase = function(prism){
   return function(){
-    var client = api.setSession(exports.user.session,api.prism(prism.prism))
+    var client = api.setSession(
+      exports.user.session,api.setupAccess('prism',prism.prism))
     return client
       .postAsync({
         url: client.url('/content/purchase'),
@@ -281,7 +284,7 @@ exports.contentPurchase = function(prism){
  */
 exports.contentDeliver = function(prism,localAddress,referrer){
   return function(){
-    var client = api.prism(prism.prism)
+    var client = api.setupAccess('prism',prism.prism)
     var options = {
       url: client.url('/' + exports.purchase.token + '/' + content.filename),
       headers: {
@@ -311,7 +314,8 @@ exports.contentDeliver = function(prism,localAddress,referrer){
  */
 exports.contentPurchaseRemove = function(prism){
   return function(){
-    var client = api.setSession(exports.user.session,api.prism(prism.prism))
+    var client = api.setSession(
+      exports.user.session,api.setupAccess('prism',prism.prism))
     return client.postAsync({
       url: client.url('/content/purchase/remove'),
       json: {token: exports.purchase.token},

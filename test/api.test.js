@@ -6,7 +6,11 @@ var https = require('https')
 
 var mock = require('../mock')
 
-//prevent bad cert errors during testing
+
+/**
+ * Prevent bad SSL cert detection
+ * @type {string}
+ */
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
 
 var app = express()
@@ -81,7 +85,7 @@ describe('api:NetworkError',function(){
 })
 
 describe('api:validateResponse',function(){
-  var client = api.master({
+  var client = api.setupAccess('prism',{
     host: '127.0.0.1',
     port: 5978
   })

@@ -54,25 +54,7 @@ var cache = {}
 
 var config = {
   maxSockets: Infinity,
-  sessionTokenName: 'X-OOSE-Token',
-  master: {
-    port: 3001,
-    host: '127.0.0.1',
-    username: 'oose',
-    password: 'oose'
-  },
-  prism: {
-    port: 3002,
-    host: '127.0.0.1',
-    username: 'oose',
-    password: 'oose'
-  },
-  store: {
-    port: 3003,
-    host: '127.0.0.1',
-    username: 'oose',
-    password: 'oose'
-  }
+  sessionTokenName: 'X-OOSE-Token'
 }
 
 var pool = {maxSockets: config.maxSockets}
@@ -179,12 +161,13 @@ var setupRequest = function(type,options){
       timeout:
         +process.env.REQUEST_TIMEOUT ||
         +options.timeout ||
-        +config[type].timeout ||
         2147483647, //equiv to timeout max in node.js/lib/timers.js
-      pool: pool,
-      auth: {
-        username: options.username || config[type].username,
-        password: options.password || config[type].password
+      pool: pool
+    }
+    if(options.username){
+      reqDefaults.auth = {
+        username: options.username,
+        password: options.password
       }
     }
     var req = request.defaults(reqDefaults)
@@ -252,13 +235,15 @@ exports.updateConfig = function(update){
 
 
 /**
- * Setup master access
+ * Setup access
+ * @param {string} type
  * @param {object} options
  * @return {request}
  */
-exports.master = function(options){
-  if(!options) options = config.master
-  return setupRequest('master',options)
+exports.setupAccess = function(type,options){
+  if(!type) type = 'prism'
+  if(!options) options = config[type]
+  return setupRequest(type,options)
 }
 
 
@@ -274,12 +259,12 @@ exports.prism = function(options){
 
 
 /**
- * Store access
+ * Setup store access
  * @param {object} options
  * @return {request}
  */
 exports.store = function(options){
-  if(!options) options = config.store
+  if(!options) options = config.prism
   return setupRequest('store',options)
 }
 

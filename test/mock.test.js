@@ -2,7 +2,11 @@
 var e2e = require('./helpers/e2e')
 var mock = require('../mock')
 
-//prevent bad cert errors during testing
+
+/**
+ * Suppress bad cert warnings we only need SSL for the TLS
+ * @type {string}
+ */
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
 
 var mockConfig = {
