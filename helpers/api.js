@@ -164,10 +164,18 @@ var setupRequest = function(type,options){
         2147483647, //equiv to timeout max in node.js/lib/timers.js
       pool: pool
     }
-    if(options.username){
+    if(options.username || (config[type] && config[type].username)){
       reqDefaults.auth = {
-        username: options.username,
-        password: options.password
+        username: options.username || config[type].username
+      }
+    }
+    if(options.password || (config[type] && config[type].password)){
+      if(reqDefaults.auth){
+        reqDefaults.auth.password = options.password || config[type].password
+      } else {
+        reqDefaults.auth = {
+          password: options.password || config[type].password
+        }
       }
     }
     var req = request.defaults(reqDefaults)
