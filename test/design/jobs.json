@@ -1,0 +1,20 @@
+{
+  "_id": "_design/jobs",
+  "views": {
+    "all": {
+      "map": "function(job){if('job'==job.type)emit(null,job)}"
+    },
+    "available": {
+      "map": "function(job){if('job'==job.type && (!job.worker) && 'queued'==job.status)emit(job.status,job)}"
+    },
+    "by_status": {
+      "map": "function(job){if('job'==job.type)emit(job.status,job)}"
+    },
+    "by_timestamp": {
+      "map": "function(job){if('job'==job.type)emit(job.timestamp,job)}"
+    },
+    "by_worker": {
+      "map": "function(job){if('job'==job.type && job.worker)emit(job.worker,job)}"
+    }
+  }
+}

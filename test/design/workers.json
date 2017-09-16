@@ -1,0 +1,11 @@
+{
+  "_id": "_design/workers",
+  "views": {
+    "all": {
+      "map": "function(worker){if('worker'==worker.type)emit(worker.name,worker)}"
+    },
+    "available": {
+      "map": "function(worker){if('worker'==worker.type && worker.available)emit(worker.name,worker)}"
+    }
+  }
+}

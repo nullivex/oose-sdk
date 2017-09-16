@@ -37,6 +37,13 @@ exports.Prism = require('./helpers/Prism')
 
 
 /**
+ * Shredder helper
+ * @type {Prism}
+ */
+exports.Shredder = require('./helpers/Shredder')
+
+
+/**
  * User space error
  * @type {UserError}
  */

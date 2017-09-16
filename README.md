@@ -75,6 +75,10 @@ describe('my test',function(){
 
 ## Changelog
 
+### 3.0.0
+* Updated to work with OOSE 3.0.0 which is switching to Couchbase
+* Implements Shredder into the OOSE system
+
 ### 2.2.2
 * Upgrade dependencies
 * Fix bug with authentication mapping
