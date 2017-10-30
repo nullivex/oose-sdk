@@ -126,7 +126,7 @@ app.post('/content/upload',validateSession,function(req,res){
       name: name,
       encoding: encoding,
       mimetype: mimetype,
-      ext: mime.extension(mimetype),
+      ext: mime.getExtension(mimetype),
       hash: null
     }
     filePromises.push(

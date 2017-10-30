@@ -2,9 +2,9 @@
   "author": "NULLIVEX LLC <developers@nullivex.com>",
   "name": "oose-sdk",
   "description": "OOSE development tools for applications",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "license": "GPL-3.0",
-  "homepage": "https://www.nullivex.com",
+  "homepage": "https://www.nullivex.com/oose-sdk",
   "repository": {
     "type": "git",
     "url": "https://github.com/nullivex/oose-sdk.git"
@@ -17,18 +17,18 @@
     "node": ">=0.10.0"
   },
   "dependencies": {
-    "bluebird": "^3.5.0",
-    "body-parser": "^1.17.2",
+    "bluebird": "^3.5.1",
+    "body-parser": "^1.18.2",
     "busboy": "^0.2.14",
     "commander": "^2.11.0",
-    "debug": "^3.0.1",
-    "express": "^4.15.4",
+    "debug": "^3.1.0",
+    "express": "^4.16.2",
     "graceful-fs": "^4.1.11",
-    "mime": "^1.4.0",
+    "mime": "^2.0.3",
     "object-manage": "^1.0.0",
     "promisepipe": "^2.0.0",
     "random-js": "^1.0.8",
-    "request": "^2.81.0",
+    "request": "^2.83.0",
     "sha1-stream": "^0.2.1",
     "temp": "^0.8.3"
   },
@@ -41,6 +41,6 @@
   },
   "devDependencies": {
     "chai": "4.1.x",
-    "mocha": "3.5.x"
+    "mocha": "4.0.x"
   }
 }

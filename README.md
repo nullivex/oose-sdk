@@ -75,9 +75,14 @@ describe('my test',function(){
 
 ## Changelog
 
+### 3.0.1
+* Does not export the Shredder object. Job object coming in 3.1
+* Fix issues with `mime` 2.0 support
+* Update license file to match package.json of GPL3+
+
 ### 3.0.0
 * Updated to work with OOSE 3.0.0 which is switching to Couchbase
-* Implements Shredder into the OOSE system
+* Implements Shredder into the OOSE system which has been renamed to Job
 
 ### 2.2.2
 * Upgrade dependencies
