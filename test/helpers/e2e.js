@@ -142,6 +142,34 @@ exports.checkProtected = function(prism){
       })
       .catch(UserError,function(err){
         expect(err.message).to.match(/Invalid response code \(401\) to POST/)
+        return client.postAsync(client.url('/job/create'))
+      })
+      .catch(UserError,function(err){
+        expect(err.message).to.match(/Invalid response code \(401\) to POST/)
+        return client.postAsync(client.url('/job/detail'))
+      })
+      .catch(UserError,function(err){
+        expect(err.message).to.match(/Invalid response code \(401\) to POST/)
+        return client.postAsync(client.url('/job/update'))
+      })
+      .catch(UserError,function(err){
+        expect(err.message).to.match(/Invalid response code \(401\) to POST/)
+        return client.postAsync(client.url('/job/remove'))
+      })
+      .catch(UserError,function(err){
+        expect(err.message).to.match(/Invalid response code \(401\) to POST/)
+        return client.postAsync(client.url('/job/start'))
+      })
+      .catch(UserError,function(err){
+        expect(err.message).to.match(/Invalid response code \(401\) to POST/)
+        return client.postAsync(client.url('/job/retry'))
+      })
+      .catch(UserError,function(err){
+        expect(err.message).to.match(/Invalid response code \(401\) to POST/)
+        return client.postAsync(client.url('/job/abort'))
+      })
+      .catch(UserError,function(err){
+        expect(err.message).to.match(/Invalid response code \(401\) to POST/)
       })
   }
 }
@@ -325,6 +353,180 @@ exports.contentPurchaseRemove = function(prism){
         expect(body.token).to.equal(exports.purchase.token)
         expect(body.count).to.equal(1)
         expect(body.success).to.equal('Purchase removed')
+      })
+  }
+}
+
+
+/**
+ * Job create
+ * @param {object} prism
+ * @return {Function}
+ */
+exports.jobCreate = function(prism){
+  return function(){
+    var client = api.setSession(
+      exports.user.session,api.setupAccess('prism',prism.prism))
+    return client.postAsync({
+      url: client.url('/job/create'),
+      localAddress: '127.0.0.1',
+      json: {
+        category: mock.job.category,
+        description: mock.job.description,
+        priority: mock.job.priority
+      }
+    })
+      .spread(function(res,body){
+        expect(body.handle).to.equal(mock.job.handle)
+        expect(body.priority).to.equal(mock.job.priority)
+        expect(body.category).to.equal(mock.job.category)
+      })
+  }
+}
+
+
+/**
+ * Job detail
+ * @param {object} prism
+ * @return {Function}
+ */
+exports.jobDetail = function(prism){
+  return function(){
+    var client = api.setSession(
+      exports.user.session,api.setupAccess('prism',prism.prism))
+    return client.postAsync({
+      url: client.url('/job/detail'),
+      localAddress: '127.0.0.1',
+      json: {
+        handle: mock.job.handle
+      }
+    })
+      .spread(function(res,body){
+        expect(body.handle).to.equal(mock.job.handle)
+        expect(body.priority).to.equal(mock.job.priority)
+        expect(body.category).to.equal(mock.job.category)
+        expect(body.status).to.equal(mock.job.status)
+      })
+  }
+}
+
+
+/**
+ * Job update
+ * @param {object} prism
+ * @return {Function}
+ */
+exports.jobUpdate = function(prism){
+  return function(){
+    var client = api.setSession(
+      exports.user.session,api.setupAccess('prism',prism.prism))
+    return client.postAsync({
+      url: client.url('/job/update'),
+      localAddress: '127.0.0.1',
+      json: {
+        handle: mock.job.handle,
+        priority: 5
+      }
+    })
+      .spread(function(res,body){
+        expect(body.handle).to.equal(mock.job.handle)
+        expect(body.priority).to.equal(5)
+      })
+  }
+}
+
+
+/**
+ * Job remove
+ * @param {object} prism
+ * @return {Function}
+ */
+exports.jobRemove = function(prism){
+  return function(){
+    var client = api.setSession(
+      exports.user.session,api.setupAccess('prism',prism.prism))
+    return client.postAsync({
+      url: client.url('/job/remove'),
+      localAddress: '127.0.0.1',
+      json: {
+        handle: mock.job.handle
+      }
+    })
+      .spread(function(res,body){
+        expect(body.success).to.equal('Job removed')
+        expect(body.count).to.equal(1)
+      })
+  }
+}
+
+
+/**
+ * Job Start
+ * @param {object} prism
+ * @return {Function}
+ */
+exports.jobStart = function(prism){
+  return function(){
+    var client = api.setSession(
+      exports.user.session,api.setupAccess('prism',prism.prism))
+    return client.postAsync({
+      url: client.url('/job/start'),
+      localAddress: '127.0.0.1',
+      json: {
+        handle: mock.job.handle
+      }
+    })
+      .spread(function(res,body){
+        expect(body.handle).to.equal(mock.job.handle)
+        expect(body.status).to.equal('queued')
+      })
+  }
+}
+
+
+/**
+ * Job Retru
+ * @param {object} prism
+ * @return {Function}
+ */
+exports.jobRetry = function(prism){
+  return function(){
+    var client = api.setSession(
+      exports.user.session,api.setupAccess('prism',prism.prism))
+    return client.postAsync({
+      url: client.url('/job/retry'),
+      localAddress: '127.0.0.1',
+      json: {
+        handle: mock.job.handle
+      }
+    })
+      .spread(function(res,body){
+        expect(body.handle).to.equal(mock.job.handle)
+        expect(body.status).to.equal('queued_retry')
+      })
+  }
+}
+
+
+/**
+ * Job Abort
+ * @param {object} prism
+ * @return {Function}
+ */
+exports.jobAbort = function(prism){
+  return function(){
+    var client = api.setSession(
+      exports.user.session,api.setupAccess('prism',prism.prism))
+    return client.postAsync({
+      url: client.url('/job/abort'),
+      localAddress: '127.0.0.1',
+      json: {
+        handle: mock.job.handle
+      }
+    })
+      .spread(function(res,body){
+        expect(body.handle).to.equal(mock.job.handle)
+        expect(body.status).to.equal('queued_abort')
       })
   }
 }

@@ -57,6 +57,20 @@ describe('mock',function(){
   it('should allow removal of purchases',
     e2e.contentPurchaseRemove(mockConfig))
 
+  it('should create a job',e2e.jobCreate(mockConfig))
+
+  it('should show job detail',e2e.jobDetail(mockConfig))
+
+  it('should update a job',e2e.jobUpdate(mockConfig))
+
+  it('should remove a job',e2e.jobRemove(mockConfig))
+
+  it('should start a job',e2e.jobStart(mockConfig))
+
+  it('should abort a job',e2e.jobAbort(mockConfig))
+
+  it('should retry an aborted job',e2e.jobRetry(mockConfig))
+
   it('should log out',e2e.prismLogout(mockConfig,mock.user.session))
 
 })
