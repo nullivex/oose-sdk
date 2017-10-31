@@ -75,6 +75,9 @@ describe('my test',function(){
 
 ## Changelog
 
+### 3.1.0
+* Add Job API to Prism
+
 ### 3.0.1
 * Does not export the Shredder object. Job object coming in 3.1
 * Fix issues with `mime` 2.0 support

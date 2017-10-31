@@ -14,6 +14,7 @@ var temp = require('temp')
 var app = express()
 var content = require('./helpers/content')
 var contentExists = require('./helpers/contentExists')
+var job = require('./helpers/job')
 var NetworkError = require('../helpers/NetworkError')
 var pkg = require('../package.json')
 var purchase = require('./helpers/purchase')
@@ -205,6 +206,81 @@ app.post('/content/purchase/remove',validateSession,function(req,res){
   res.json({token: token, count: 1, success: 'Purchase removed'})
 })
 
+//job functions
+app.post('/job/create',validateSession,function(req,res){
+  var data = req.body
+  res.json({
+    handle: job.handle,
+    description: data.description,
+    priority: data.priority,
+    category: data.category || 'resource',
+    UserId: job.UserId
+  })
+})
+app.post('/job/detail',validateSession,function(req,res){
+  res.json({
+    handle: job.handle,
+    description: job.description,
+    priority: job.priority,
+    category: job.category,
+    status: job.status,
+    statusDescription: job.statusDescription,
+    stepTotal: job.stepTotal,
+    stepComplete: job.stepComplete,
+    frameTotal: job.frameTotal,
+    frameComplete: job.frameComplete,
+    frameDescription: job.frameDescription,
+    UserId: job.UserId
+  })
+})
+app.post('/job/update',validateSession,function(req,res){
+  var data = req.body
+  res.json({
+    handle: data.handle || job.handle,
+    description: data.description || job.description,
+    priority: data.priority || job.priority,
+    category: data.category || job.category,
+    status: data.status || job.status,
+    statusDescription: data.statusDescription || job.statusDescription,
+    stepTotal: data.stepTotal || job.stepTotal,
+    stepComplete: data.stepComplete || job.stepComplete,
+    frameTotal: data.frameTotal || job.frameTotal,
+    frameComplete: data.frameComplete || job.frameComplete,
+    frameDescription: data.frameDescription || job.frameDescription,
+    UserId: data.UserId || job.UserId
+  })
+})
+app.post('/job/remove',validateSession,function(req,res){
+  res.json({
+    success: 'Job removed',
+    count: 1
+  })
+})
+app.post('/job/start',validateSession,function(req,res){
+  var jobStart = job
+  jobStart.status = 'queued'
+  res.json(jobStart)
+})
+app.post('/job/retry',validateSession,function(req,res){
+  var jobRetry = job
+  jobRetry.status = 'queued_retry'
+  res.json(jobRetry)
+})
+app.post('/job/abort',validateSession,function(req,res){
+  var jobAbort = job
+  jobAbort.status = 'queued_abort'
+  res.json(jobAbort)
+})
+app.post('/job/content/exists',validateSession,function(req,res){
+  res.json({
+    exists: false
+  })
+})
+app.get('/job/content/download/:handle/:file',function(req,res){
+  res.type('text/plain')
+  res.send('foo\n')
+})
+
 //main content retrieval route
 app.get('/:token/:filename',function(req,res){
   res.redirect(302,
@@ -224,6 +300,13 @@ exports.content = content
  * @type {object}
  */
 exports.contentExists = contentExists
+
+
+/**
+ * Mock job
+ * @type {object}
+ */
+exports.job = job
 
 
 /**

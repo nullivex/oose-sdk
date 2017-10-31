@@ -17,7 +17,7 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
 
 var mockConfig = {
   prism: {
-    port: 3000,
+    port: 5971,
     host: '127.0.0.1'
   }
 }
@@ -134,5 +134,68 @@ describe('Prism',function(){
       .then(function(result){
         expect(result).to.be.an('object')
       })
+  })
+  describe('Prism:job',function(){
+    it('should create a job',function(){
+      return prism.jobCreate(mock.job.description)
+        .then(function(result){
+          expect(result.handle).to.equal(mock.job.handle)
+        })
+    })
+    it('should get job details',function(){
+      return prism.jobDetail(mock.job.handle)
+        .then(function(result){
+          expect(result.handle).to.equal(mock.job.handle)
+        })
+    })
+    it('should update a job',function(){
+      return prism.jobUpdate(mock.job.handle,{status: 'complete'})
+        .then(function(result){
+          expect(result.handle).to.equal(mock.job.handle)
+          expect(result.status).to.equal('complete')
+        })
+    })
+    it('should remove a job',function(){
+      return prism.jobRemove(mock.job.handle)
+        .then(function(result){
+          expect(result.success).to.equal('Job removed')
+          expect(result.count).to.equal(1)
+        })
+    })
+    it('should start a job',function(){
+      return prism.jobStart(mock.job.handle)
+        .then(function(result){
+          expect(result.handle).to.equal(mock.job.handle)
+          expect(result.status).to.equal('queued')
+        })
+    })
+    it('should retry a job',function(){
+      return prism.jobRetry(mock.job.handle)
+        .then(function(result){
+          expect(result.handle).to.equal(mock.job.handle)
+          expect(result.status).to.equal('queued_retry')
+        })
+    })
+    it('should abort a job',function(){
+      return prism.jobAbort(mock.job.handle)
+        .then(function(result){
+          expect(result.handle).to.equal(mock.job.handle)
+          expect(result.status).to.equal('queued_abort')
+        })
+    })
+    it('should check if content exists',function(){
+      return prism.jobContentExists(mock.job.handle,'video.mp4')
+        .then(function(result){
+          expect(result).to.equal(false)
+        })
+    })
+    it('should generate a content download url',function(){
+      var url = prism.jobContentUrl(mock.job.handle,'video.mp4')
+      expect(url).to.equal(
+        'https://' + mockConfig.prism.host + ':' +
+        mockConfig.prism.port + '/job/content/download/' +
+        mock.job.handle + '/video.mp4'
+      )
+    })
   })
 })

@@ -334,6 +334,232 @@ Prism.prototype.urlStatic = function(hash,ext,name){
 
 
 /**
+ * Create Job
+ * @param {object} description
+ * @param {integer} priority
+ * @param {string} category - either augment or resource
+ * @return {P}
+ */
+Prism.prototype.jobCreate = function(description,priority,category){
+  var that = this
+  var client = {}
+  return that.prepare()
+    .then(function(result){
+      client = result
+      return client.postAsync({
+        url: client.url('/job/create'),
+        json: {
+          description: JSON.stringify(description),
+          priority: priority || null,
+          category: category || 'resource'
+        }
+      })
+    })
+    .spread(that.api.validateResponse())
+    .spread(function(res,body){
+      return body
+    })
+    .catch(that.handleNetworkError)
+}
+
+
+/**
+ * Job detail
+ * @param {string} handle
+ * @return {P}
+ */
+Prism.prototype.jobDetail = function(handle){
+  var that = this
+  var client = {}
+  return that.prepare()
+    .then(function(result){
+      client = result
+      return client.postAsync({
+        url: client.url('/job/detail'),
+        json: {
+          handle: handle
+        }
+      })
+    })
+    .spread(that.api.validateResponse())
+    .spread(function(res,body){
+      return body
+    })
+    .catch(that.handleNetworkError)
+}
+
+
+/**
+ * Job update
+ * @param {string} handle
+ * @param {object} changes
+ * @return {P}
+ */
+Prism.prototype.jobUpdate = function(handle,changes){
+  var that = this
+  var client = {}
+  return that.prepare()
+    .then(function(result){
+      client = result
+      return client.postAsync({
+        url: client.url('/job/update'),
+        json: changes
+      })
+    })
+    .spread(that.api.validateResponse())
+    .spread(function(res,body){
+      return body
+    })
+    .catch(that.handleNetworkError)
+}
+
+
+/**
+ * Job start
+ * @param {string} handle
+ * @return {P}
+ */
+Prism.prototype.jobStart = function(handle){
+  var that = this
+  var client = {}
+  return that.prepare()
+    .then(function(result){
+      client = result
+      return client.postAsync({
+        url: client.url('/job/start'),
+        json: {
+          handle: handle
+        }
+      })
+    })
+    .spread(that.api.validateResponse())
+    .spread(function(res,body){
+      return body
+    })
+    .catch(that.handleNetworkError)
+}
+
+
+/**
+ * Abort a job
+ * @param {string} handle
+ * @return {P}
+ */
+Prism.prototype.jobAbort = function(handle){
+  var that = this
+  var client = {}
+  return that.prepare()
+    .then(function(result){
+      client = result
+      return client.postAsync({
+        url: client.url('/job/abort'),
+        json: {
+          handle: handle
+        }
+      })
+    })
+    .spread(that.api.validateResponse())
+    .spread(function(res,body){
+      return body
+    })
+    .catch(that.handleNetworkError)
+}
+
+
+/**
+ * Job retry
+ * @param {string} handle
+ * @return {P}
+ */
+Prism.prototype.jobRetry = function(handle){
+  var that = this
+  var client = {}
+  return that.prepare()
+    .then(function(result){
+      client = result
+      return client.postAsync({
+        url: client.url('/job/retry'),
+        json: {
+          handle: handle
+        }
+      })
+    })
+    .spread(that.api.validateResponse())
+    .spread(function(res,body){
+      return body
+    })
+    .catch(that.handleNetworkError)
+}
+
+
+/**
+ * Job remove
+ * @param {string} handle
+ * @return {P}
+ */
+Prism.prototype.jobRemove = function(handle){
+  var that = this
+  var client = {}
+  return that.prepare()
+    .then(function(result){
+      client = result
+      return client.postAsync({
+        url: client.url('/job/remove'),
+        json: {
+          handle: handle
+        }
+      })
+    })
+    .spread(that.api.validateResponse())
+    .spread(function(res,body){
+      return body
+    })
+    .catch(that.handleNetworkError)
+}
+
+
+/**
+ * Job content exists
+ * @param {string} handle
+ * @param {string} file  - relative path to content
+ * @return {P}
+ */
+Prism.prototype.jobContentExists = function(handle,file){
+  var that = this
+  var client = {}
+  return that.prepare()
+    .then(function(result){
+      client = result
+      return client.postAsync({
+        url: client.url('/job/content/exists'),
+        json: {
+          handle: handle,
+          file: file
+        }
+      })
+    })
+    .spread(that.api.validateResponse())
+    .spread(function(res,body){
+      return !!body.exists
+    })
+    .catch(that.handleNetworkError)
+}
+
+
+/**
+ * Job content URL
+ * @param {string} handle
+ * @param {string} file
+ * @return {string}
+ */
+Prism.prototype.jobContentUrl = function(handle,file){
+  var that = this
+  return 'https://' + that.opts.prism.host + ':' + that.opts.prism.port +
+    '/job/content/download/' + handle + '/' + file
+}
+
+
+/**
  * Export Prism
  * @type {Prism}
  */
