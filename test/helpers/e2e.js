@@ -104,7 +104,7 @@ exports.checkPublic = function(prism){
         console.log(body)
         throw new Error('Should have thrown an error for no username')
       })
-      .catch(UserError,function(err){
+      .catch(Error,function(err){
         expect(err.message).to.equal('No user found')
       })
   }

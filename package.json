@@ -2,7 +2,7 @@
   "author": "NULLIVEX LLC <developers@nullivex.com>",
   "name": "oose-sdk",
   "description": "OOSE development tools for applications",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "license": "GPL-3.0",
   "homepage": "https://www.nullivex.com/oose-sdk",
   "repository": {
@@ -26,7 +26,7 @@
     "graceful-fs": "^4.1.11",
     "mime": "^2.0.3",
     "object-manage": "^1.0.0",
-    "promisepipe": "^2.0.0",
+    "promisepipe": "^2.1.1",
     "random-js": "^1.0.8",
     "request": "^2.83.0",
     "sha1-stream": "^0.2.1",

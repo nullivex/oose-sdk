@@ -75,6 +75,11 @@ describe('my test',function(){
 
 ## Changelog
 
+### 3.1.1
+* Remove UserError being thrown by validate response
+* Validate response will also now forward raw responses
+* Update tp `promisepipe` 2.1.1
+
 ### 3.1.0
 * Add Job API to Prism
 

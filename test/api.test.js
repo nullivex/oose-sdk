@@ -43,7 +43,6 @@ app.post('/invalid-code/valid',function(req,res){
 
 var api = require('../helpers/api')
 var NetworkError = require('../helpers/NetworkError')
-var UserError = require('../helpers/UserError')
 
 var throwError = function(message){
   throw new Error(message)
@@ -108,7 +107,7 @@ describe('api:validateResponse',function(){
       .spread(function(){
         throw new Error('Error was not thrown')
       })
-      .catch(UserError,function(err){
+      .catch(function(err){
         expect(err.message).to.equal('invalid')
       })
   })
@@ -118,7 +117,7 @@ describe('api:validateResponse',function(){
       .spread(function(){
         throw new Error('Error was not thrown')
       })
-      .catch(UserError,function(err){
+      .catch(function(err){
         expect(err.message).to.equal('invalid')
       })
   })
@@ -128,7 +127,7 @@ describe('api:validateResponse',function(){
       .spread(function(){
         throw new Error('Error was not thrown')
       })
-      .catch(UserError,function(err){
+      .catch(function(err){
         expect(err.message).to.equal(
           'Invalid response (401) to ' +
           'https://127.0.0.1:5978/invalid-code/valid ' +

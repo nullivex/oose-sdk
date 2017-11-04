@@ -6,7 +6,6 @@ var request = require('request')
 var util = require('util')
 
 var NetworkError = require('../helpers/NetworkError')
-var UserError = require('../helpers/UserError')
 
 //set a default timeout
 //equiv to timeout max in node.js/lib/timers.js
@@ -81,15 +80,13 @@ var validateResponse = function(){
     if('object' !== typeof body){
       if('{' === body[0])
         body = JSON.parse(body)
-      else
-        throw new UserError(body)
     }
-    if(body.error){
-      if(body.error.message) throw new UserError(body.error.message)
-      if(body.error) throw new UserError(body.error)
+    if('object' === typeof body && body.error){
+      if(body.error.message) throw new Error(body.error.message)
+      if(body.error) throw new Error(body.error)
     }
     if(200 !== res.statusCode){
-      throw new UserError(
+      throw new Error(
         'Invalid response (' + res.statusCode + ')' +
         ' to ' + res.request.href + ' body: ' + util.inspect(body))
     }
