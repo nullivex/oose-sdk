@@ -381,7 +381,6 @@ Prism.prototype.jobDetail = function(handle){
         }
       })
     })
-    .spread(that.api.validateResponse())
     .spread(function(res,body){
       return body
     })

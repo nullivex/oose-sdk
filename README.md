@@ -75,6 +75,10 @@ describe('my test',function(){
 
 ## Changelog
 
+### 3.1.2
+* Prism jobDetail no longer users api.validateResponse as jobDetail may
+throw false errors just from reporting the job status
+
 ### 3.1.1
 * Remove UserError being thrown by validate response
 * Validate response will also now forward raw responses
